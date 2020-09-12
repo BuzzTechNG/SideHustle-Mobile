@@ -2,6 +2,8 @@ import React from "react";
 import { View } from "react-native";
 import { Card, Divider, Text } from "@ui-kitten/components";
 
+
+
 export const TransactionItem = (props) => {
   return (
     <Card style={{ marginBottom: 10 }}>

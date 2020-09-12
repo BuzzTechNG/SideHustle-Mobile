@@ -24,8 +24,11 @@ import {
   ArrowForwardIcon,
 } from "../../assets/Icons";
 import { KeyboardAvoidingView } from "../../components/evakeyBoard";
+import * as Facebook from 'expo-facebook';
+
 export const LoginScreen = (props) => {
   const theme = useTheme();
+  const [isLoggedin]
   return (
     <>
     

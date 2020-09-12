@@ -9,15 +9,15 @@ import { AppHeader } from '../components/App.Header';
 
 const SwitchNav = () => (
     <NavigationContainer>
-         {/* <AuthNavigation/> */}
-        <UserNavigation/>
+         <AuthNavigation/>
+        {/* <UserNavigation/> */}
     </NavigationContainer>
 );
 
 export const AppNavigation = () => (
     <>
      <StatusBar style="auto" backgroundColor="gray" />
-     <AppHeader/>
+     {/* <AppHeader/> */}
     <SwitchNav/>
     </>
 ) 
