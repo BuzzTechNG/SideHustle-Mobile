@@ -7,8 +7,8 @@ import * as eva from '@eva-design/eva';
 import {AppNavigation} from './navigation/app.navigation'
 import { ApolloProvider } from '@apollo/client';
 import {client} from "./index";
-
-export default  ()=> {
+import { AppLoading } from 'expo';
+export default function App()=> {
 
 return (
 
