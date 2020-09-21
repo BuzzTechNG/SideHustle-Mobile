@@ -13,16 +13,20 @@ import {getLoggedIn} from './utilities/localstorage'
 export default function App(){
   const [isReady, setReady] = useState(false);
   useEffect(() => {
-    try {
-      await SplashScreen.preventAutoHideAsync();
-    } catch (error) {
-      console.log(error)
-    }
+   
     const checkLogin = async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+      } catch (error) {
+        console.log(error)
+      }
+      
       const value = await getLoggedIn()
-      setReady(value);
-      await SplashScreen.hideAsync();
+      setReady(value, async()=>{
+        await SplashScreen.hideAsync();
+      } );
     }
+    checkLogin();
   }, [])
 
 
