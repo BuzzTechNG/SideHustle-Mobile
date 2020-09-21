@@ -26,6 +26,7 @@ export const getLoggedIn = async (props) =>{
 export const deleteAllInLocalStorage = async () =>{
    try {
     await AsyncStorage.clear();
+    
     return true
    } catch (error) {
        console.log(error);
