@@ -12,14 +12,18 @@ import {
 import { View, Animated,StyleSheet } from "react-native";
 import {deleteAllInLocalStorage
 } from '../utilities/localstorage'
+import { ChangeNavContext } from "../navigation/app.navigation";
 
 const HEADER_MAX_HEIGHT = 150;
 const HEADER_MIN_HEIGHT = 100;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 
-export const AppHeader = () => {
+export const AppHeader = () => { 
+  const changeNav = React.useContext(ChangeNavContext)
   const [menuVisible, setMenuVisible] = React.useState(false);
+
+  
   // start scrollable header
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -29,7 +33,14 @@ export const AppHeader = () => {
     <TopNavigationAction icon={MoreVerticalIcon} onPress={toggleMenu} />
   );
 
-  const RightAction = () => (
+  const RightAction = () => {
+    // const Logout = async() => {
+    //   const value = await deleteAllInLocalStorage();
+    //   if(value){
+    //     changeNav()
+    //   }
+    // }
+    return (
     <>
       <TopNavigationAction icon={PersonOutlineIcon} />
       <OverflowMenu
@@ -38,10 +49,10 @@ export const AppHeader = () => {
         onBackdropPress={toggleMenu}
       >
         <MenuItem accessoryLeft={InfoIcon} title="About" />
-        <MenuItem accessoryLeft={LogoutIcon} title="Logout" onPress={ () => deleteAllInLocalStorage()} />
+        <MenuItem accessoryLeft={LogoutIcon} title="Logout" onPress={ () => changeNav(false)} />
       </OverflowMenu>
     </>
-  );
+  )};
     //profile image 
     const ProfileImg = () => (
         <Avatar source={require('../assets/img.jpg')} />

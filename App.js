@@ -4,39 +4,18 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { IconRegistry, ApplicationProvider, } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import {AppNavigation} from './navigation/app.navigation'
+import {AppNavigation, ChangeNavContext} from './navigation/app.navigation'
 import { ApolloProvider } from '@apollo/client';
 import {client} from "./index";
-import { AppLoading } from 'expo';
-import * as SplashScreen from 'expo-splash-screen';
-import {getLoggedIn} from './utilities/localstorage'
 export default function App(){
-  const [isReady, setReady] = useState(false);
-  useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        await SplashScreen.preventAutoHideAsync();
-      } catch (error) {
-        console.log(error)
-      }
-      const value = await getLoggedIn()
-      setReady(value);
-      await SplashScreen.hideAsync();
-    }
-    checkLogin();
-  }, [])
-
-
-
-
 return (
-
   <>
     <IconRegistry icons={EvaIconsPack} />
     <ApolloProvider client={client} >
     <ApplicationProvider {...eva} theme={eva.light}>
       {/* <SafeAreaView> */}
-      { isReady ? <AppNavigation isReady={isReady}/> : <AppNavigation isReady={isReady} />  }
+      <AppNavigation />
+      {/* { isReady ? <AppNavigation isReady={isReady}/> : <AppNavigation isReady={isReady} />  } */}
       {/* </SafeAreaView> */}
       {/* <Text>app</Text> */}
     </ApplicationProvider>

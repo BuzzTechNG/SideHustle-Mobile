@@ -1,6 +1,7 @@
 import React from 'react';
 // import {alert} from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage' 
+import AsyncStorage from '@react-native-community/async-storage'
+import {ChangeNavContext }from '../navigation/app.navigation'
 
 export const isLoggedIn = '@isLoggedIn' 
 export const setLoggedIn = async (props) =>{
@@ -24,10 +25,12 @@ export const getLoggedIn = async (props) =>{
 }
 
 export const deleteAllInLocalStorage = async () =>{
+    const changeNav = React.useContext(ChangeNavContext)
    try {
+    // const value = getLoggedIn()
+    console.log("claer storage");
     await AsyncStorage.clear();
-    
-    return true
+    return true 
    } catch (error) {
        console.log(error);
        return false

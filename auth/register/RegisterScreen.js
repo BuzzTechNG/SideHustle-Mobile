@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState ,useEffect} from "react";
 import {
   ImageBackground,
   StatusBar,
@@ -21,11 +21,22 @@ import {
   FacebookIcon,
   GoogleIcon,
   PersonOutlineIcon,
-  ArrowBackIcon,
+  ArrowBackIcon,EyeIcon
 } from "../../assets/Icons";
 
 export const RegisterScreen = (props) => {
-  console.log(Layout);
+  const [firstName, setfirstName] = useState('');
+  const [middleName, setmiddleName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
+  const [terms, setTerms] = useState(false)
+  const [viewPassword, setViewPassword] = useState(false)
+  const handleRegister = () =>{
+    console.log("register")
+  }
   return (
     <>
       <StatusBar style="auto" backgroundColor="gray" />
@@ -91,57 +102,72 @@ export const RegisterScreen = (props) => {
             <Text style={{ alignSelf: "center" }}>Fill the form</Text>
             <View>
               <Input
+                textAlign="center"
+                onChangeText={firstname => setfirstName(firstname)}
                 style={styles.formInput}
-                placeholder="Firstname"
+                placeholder="First Name"
                 size="medium"
-                accessoryLeft={PersonOutlineIcon}
               />
               <Input
+                onChangeText={lastname => setLastName(lastname)}
+                textAlign="center"
                 style={styles.formInput}
-                placeholder="Lastname"
+                placeholder="Last Name"
                 size="medium"
-                accessoryLeft={PersonOutlineIcon}
               />
               <Input
+              textAlign="center"
+              onChangeText={middleName => setmiddleName(middleName)}
                 style={styles.formInput}
-                placeholder="Email"
+                placeholder="Middle Name"
                 size="medium"
-                accessoryLeft={PersonOutlineIcon}
               />
               <Input
-                style={styles.formInput}
-                placeholder="Mobile"
-                size="medium"
-                accessoryLeft={PersonOutlineIcon}
-              />
-              <Input
-                style={styles.formInput}
-                placeholder="DOB"
-                size="medium"
-                accessoryLeft={PersonOutlineIcon}
-              />
-              <Input
-                style={styles.formInput}
-                placeholder="gender"
-                size="medium"
-                accessoryLeft={PersonOutlineIcon}
-              />
-              <Input
+              textAlign="center"
                 style={styles.formInput}
                 placeholder="Address"
                 size="medium"
-                accessoryLeft={PersonOutlineIcon}
+              />
+              <Input
+              textAlign="center"
+              onChangeText={mobile => setMobile(mobile)}
+              keyboardType="number-pad"
+                style={styles.formInput}
+                placeholder="Mobile Number"
+                size="medium"
+              />
+              <Input
+              textAlign="center"
+              onChangeText={email => setEmail(email)}
+                style={styles.formInput}
+                placeholder="Email"
+                size="medium"
+              />
+              <Input
+              secureTextEntry={viewPassword}
+              textContentType="password"
+              textAlign="center"
+              onChangeText={password => setPassword(password)}
+                style={styles.formInput}
+                placeholder="Password"
+                size="medium"
+                accessoryRight={EyeIcon}
               />
               
-              <CheckBox
+             <View style={{paddingHorizontal:10}}>
+             <CheckBox
                 style={styles.termsCheckBox}
                 textStyle={styles.termsCheckBoxText}
-                checked={null}
-                text={
-                  "By creating an account, I agree to the Ewa Terms of\nUse and Privacy Policy"
-                }
-                onChange={() => {}}
-              />
+                checked={terms}
+               
+                onChange={(value) => setTerms(value)}
+              > 
+              By creating an account, I agree to the Ewa Terms of\nUse and Privacy Policy
+              </CheckBox>
+             </View>
+              <Button style={styles.registerBtn} onPress={() => handleRegister()} >
+                Register
+              </Button>
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -155,4 +181,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginVertical: 10,
   },
+  registerBtn :{
+    marginVertical:15,
+    borderRadius:20,
+    // elevation:2
+  }
 });
