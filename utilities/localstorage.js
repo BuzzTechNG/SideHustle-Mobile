@@ -22,3 +22,13 @@ export const getLoggedIn = async (props) =>{
         console.log('cant get item');
     }
 }
+
+export const deleteAllInLocalStorage = async () =>{
+   try {
+    await AsyncStorage.clear();
+    return true
+   } catch (error) {
+       console.log(error);
+       return false
+   }
+}

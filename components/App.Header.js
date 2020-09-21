@@ -10,6 +10,8 @@ import {
   ChevronDownIcon
 } from "../assets/Icons";
 import { View, Animated,StyleSheet } from "react-native";
+import {deleteAllInLocalStorage
+} from '../utilities/localstorage'
 
 const HEADER_MAX_HEIGHT = 150;
 const HEADER_MIN_HEIGHT = 100;
@@ -36,7 +38,7 @@ export const AppHeader = () => {
         onBackdropPress={toggleMenu}
       >
         <MenuItem accessoryLeft={InfoIcon} title="About" />
-        <MenuItem accessoryLeft={LogoutIcon} title="Logout" />
+        <MenuItem accessoryLeft={LogoutIcon} title="Logout" onPress={ () => deleteAllInLocalStorage()} />
       </OverflowMenu>
     </>
   );

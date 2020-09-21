@@ -6,26 +6,13 @@ import {UserNavigation} from '../users/navigation/user.navigation'
 import { TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import {InfoIcon, LogoutIcon, MenuIcon} from '../assets/Icons'
 import { AppHeader } from '../components/App.Header';
-import AsyncStorage from '@react-native-community/async-storage'
 import { setLoggedIn, getLoggedIn } from "../utilities/localstorage";
 
 
 
 export const AppNavigation = (props) => {
-useEffect(() => {
-    checkLogin()
-}, [])
-const [Logged, setLogged] = useState()
-// const Logged = false
-
-const checkLogin = async () =>{
-    const value = await getLoggedIn();
-    console.log(value);
-    setLogged(value)
-    // Logged = value
-}
 const CurrentNav = () => {
-    if(Logged){
+    if(props.isReady){
         return <UserNavigation/> ;
     }else{
         return <AuthNavigation/>;
