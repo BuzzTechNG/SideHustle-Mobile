@@ -20,14 +20,14 @@ export default function App(){
       } catch (error) {
         console.log(error)
       }
-      
       const value = await getLoggedIn()
-      setReady(value, async()=>{
-        await SplashScreen.hideAsync();
-      } );
+      setReady(value);
+      await SplashScreen.hideAsync();
     }
     checkLogin();
   }, [])
+
+
 
 
 return (
@@ -37,7 +37,8 @@ return (
     <ApolloProvider client={client} >
     <ApplicationProvider {...eva} theme={eva.light}>
       {/* <SafeAreaView> */}
-      <AppNavigation />
+      { isReady ? <AppNavigation /> :null  }
+      
       {/* </SafeAreaView> */}
       {/* <Text>app</Text> */}
     </ApplicationProvider>
