@@ -9,7 +9,7 @@ import { ApolloProvider } from '@apollo/client';
 import {client} from "./index";
 import { AppLoading } from 'expo';
 export default function App()=> {
-
+  const [isReady, setReady] = useState(false);
 return (
 
   <>
