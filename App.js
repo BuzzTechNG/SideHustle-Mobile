@@ -37,8 +37,7 @@ return (
     <ApolloProvider client={client} >
     <ApplicationProvider {...eva} theme={eva.light}>
       {/* <SafeAreaView> */}
-      { isReady ? <AppNavigation /> :null  }
-      
+      { isReady ? <AppNavigation isReady={isReady}/> :null  }
       {/* </SafeAreaView> */}
       {/* <Text>app</Text> */}
     </ApplicationProvider>

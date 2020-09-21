@@ -11,7 +11,7 @@ import { setLoggedIn, getLoggedIn } from "../utilities/localstorage";
 
 
 
-export const AppNavigation = () => {
+export const AppNavigation = (props) => {
 useEffect(() => {
     checkLogin()
 }, [])
