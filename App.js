@@ -9,11 +9,12 @@ import { ApolloProvider } from '@apollo/client';
 import {client} from "./index";
 import { AppLoading } from 'expo';
 import * as SplashScreen from 'expo-splash-screen';
+import {getLoggedIn} from './utilities/localstorage'
 export default function App(){
   const [isReady, setReady] = useState(false);
   useEffect(() => {
     const checkLogin = async () => {
-
+      const value = await getLoggedIn()
     }
   }, [])
 
@@ -25,7 +26,7 @@ return (
     <ApolloProvider client={client} >
     <ApplicationProvider {...eva} theme={eva.light}>
       {/* <SafeAreaView> */}
-      <AppNavigation/>
+      <AppNavigation />
       {/* </SafeAreaView> */}
       {/* <Text>app</Text> */}
     </ApplicationProvider>
