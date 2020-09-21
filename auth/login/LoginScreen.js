@@ -6,6 +6,8 @@ import {
   Image,
   ImageBackground,
   ScrollView,
+  FlatList,
+  ActivityIndicator
 } from "react-native";
 import {
   Layout,
@@ -14,6 +16,7 @@ import {
   Input,
   Text,
   useTheme,
+  Modal
 } from "@ui-kitten/components";
 import {
   PersonOutlineIcon,
@@ -23,16 +26,79 @@ import {
   GoogleIcon,
   ArrowForwardIcon,
 } from "../../assets/Icons";
+import { useQuery, gql } from "@apollo/client";
+import Apollo from "../../apolloHelper"
 import { KeyboardAvoidingView } from "../../components/evakeyBoard";
 import * as Facebook from 'expo-facebook';
+import AsyncStorage from '@react-native-community/async-storage'
+import { setLoggedIn, getLoggedIn } from "../../utilities/localstorage";
+
+
+Facebook.initializeAsync('333080151368637' ,'test1')
+const apollo = new Apollo()
+
+// const ExchangeRates= () => {
+//   const { loading, error, data } = useQuery(apollo.TEST_QL);
+//  const renderItem = ({ item }) => (
+//     <Text >{item.currency} :{item.rate} </Text>
+//   );  
+//   if(loading) return <Text>Loading</Text>
+//     if(error) return <Text>Error</Text>
+//     return (
+   
+//       <FlatList
+//         data={data.rates}
+//         renderItem={renderItem}
+//          keyExtractor={item => item.currency}
+//       />
+    
+//     )
+// };
+
+
 
 export const LoginScreen = (props) => {
+
   const theme = useTheme();
-  const [isLoggedin]
+  const [isLoggedin, setLoggedinStatus] = React.useState(false);
+  const [userData, setUserData] = React.useState(null);
+  const [isImageLoading, setImageLoadStatus] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const facebookLogIn = async()=>{
+    try {
+      const {type, token, expires, permission, declinedPermission} = await Facebook.logInWithReadPermissionsAsync('333080151368637',{
+        permissions:['public_profile','email']
+      });
+      if(type== "success"){
+        fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,first_name,gender,last_name,link,locale,timezone,verified,name,email,picture.height(500)`)
+
+          .then(response => response.json())
+
+          .then(data => {
+            setLoggedIn(true)
+            setLoggedinStatus(true);
+            //save logging state asyncstorage
+            setUserData(data);
+            setVisible(true)
+
+          })
+
+          .catch(e => console.log(e+"okay"))
+
+      } else {
+          console.log(type); // type === 'cancel'
+
+      }
+      
+    } catch ({message}) {
+      console.log(message+"catch");
+    }
+  }
   return (
     <>
     
       <Layout style={styles.container}>
+      <ActivityIndicator size="large" color="#0000ff" animating={visible} style={{ position: "absolute" }} />
         <KeyboardAvoidingView>
           <View
             style={{ paddingHorizontal: 16, paddingVertical: 10 }}
@@ -76,7 +142,7 @@ export const LoginScreen = (props) => {
             <View style={{ alignItems: "flex-end" }}>
               <Text onPress={() => props.navigation.navigate('ForgotPassword')} appearance="hint" category="h6" >Forgot Password ?</Text>
             </View>
-            <Button style={styles.btnLogin} size="large">Login</Button>
+            <Button style={styles.btnLogin} size="large" onPress={() => apollo.testql()}>Login</Button>
             {/* Oauth */}
             <View>
               <Text appearance="hint" style={{ alignSelf: "center", marginBottom:"10%" }}>
@@ -87,7 +153,7 @@ export const LoginScreen = (props) => {
                 <Button status="danger" accessoryLeft={GoogleIcon} size="medium">
                   Google
                 </Button>
-                <Button status="info" accessoryLeft={FacebookIcon} size="medium">
+                <Button status="info" accessoryLeft={FacebookIcon} size="medium" onPress={() => facebookLogIn()} >
                   Facebook
                 </Button>
               </View>
@@ -106,6 +172,46 @@ export const LoginScreen = (props) => {
               >
                 Sign Up
               </Button>
+              <Button onPress={() => setVisible(true)}>
+                TOGGLE MODAL
+              </Button>
+               <Modal
+                visible={visible}
+                backdropStyle={styles.backdrop}
+                onBackdropPress={() => setVisible(false)}>
+                <Card disabled={true}>
+       
+                 <Text style={{ fontSize: 22, marginVertical: 10 }}>Hi {userData ? userData.name : "Palsm" }!</Text> 
+                <View>
+                {/* <ScrollView>
+                    <ExchangeRates/>
+                </ScrollView> */}
+                </View>
+          {/* <ActivityIndicator size="large" color="#0000ff" animating={!isImageLoading} style={{ position: "absolute" }} />   */}
+                 {/* <View style={styles.container}>
+
+                          <Image
+
+                            style={{ width: 200, height: 200, borderRadius: 50 }}
+
+                            source={{ uri: userData.picture.data.url }}
+
+                            onLoadEnd={() => setImageLoadStatus(true)} />
+
+                            
+
+                        <Text style={{ fontSize: 22, marginVertical: 10 }}>Hi {userData.name}!</Text> 
+                      
+
+                        </View>  */}
+
+
+                    <Text>Logout </Text>
+                  <Button onPress={() => setVisible(false)}>
+                    DISMISS
+                  </Button>
+                </Card>
+              </Modal>
             </View>
           </View>
         </KeyboardAvoidingView>
