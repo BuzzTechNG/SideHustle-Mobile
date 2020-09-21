@@ -12,11 +12,10 @@ import * as SplashScreen from 'expo-splash-screen';
 export default function App(){
   const [isReady, setReady] = useState(false);
   useEffect(() => {
-    effect
-    return () => {
-      cleanup
+    const checkLogin = async () => {
+
     }
-  }, [input])
+  }, [])
 
 
 return (
