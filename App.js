@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { IconRegistry, ApplicationProvider, } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
@@ -8,8 +8,17 @@ import {AppNavigation} from './navigation/app.navigation'
 import { ApolloProvider } from '@apollo/client';
 import {client} from "./index";
 import { AppLoading } from 'expo';
-export default function App()=> {
+import * as SplashScreen from 'expo-splash-screen';
+export default function App(){
   const [isReady, setReady] = useState(false);
+  useEffect(() => {
+    effect
+    return () => {
+      cleanup
+    }
+  }, [input])
+
+
 return (
 
   <>
