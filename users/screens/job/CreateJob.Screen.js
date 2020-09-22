@@ -11,6 +11,8 @@ import {
   IndexPath,
 } from "@ui-kitten/components";
 import { AlertIcon, FilterIcon } from "../../../assets/Icons";
+import { AppHeader, ScrollHeader } from "../../../components/App.Header";
+import { KeyboardAvoidingView } from "../../../components/evakeyBoard";
 
 const useInputState = (initialValue = "") => {
   const [value, setValue] = React.useState(initialValue);
@@ -19,11 +21,18 @@ const useInputState = (initialValue = "") => {
 
 export const CreateJobScreen = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
-  const multilineInputState = useInputState();
+  const [remoteJob , setRemoteJob] = React.useState(false)
+  const JobDescriptionState = useInputState();
+  const budgetState = useInputState()
+  const handleCreateJob =()=>{
+    console.log(budgetState,JobDescriptionState)
+  }
 
   return (
     <Layout style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 10 }}>
-      <View style={styles.pageHeader}>
+      <AppHeader/>
+      <KeyboardAvoidingView>
+             <View style={styles.pageHeader}>
         <Text category="h2" style={styles.pageTitle}>
           Create Job
         </Text>
@@ -38,10 +47,10 @@ export const CreateJobScreen = () => {
           <Button size="small" accessoryLeft={FilterIcon} />
         </View>
       </View>
-
+    
       <View style={styles.formControl}>
         <Select
-          label="Select Topic"
+          label="Select Job Category"
           selectedIndex={selectedIndex}
           onSelect={(index) => setSelectedIndex(index)}
         >
@@ -56,14 +65,14 @@ export const CreateJobScreen = () => {
           label="Description"
           multiline={true}
           textStyle={{ minHeight: 64 }}
-          placeholder="Multiline"
-          {...multilineInputState}
+          placeholder="Job Description "
+          {...JobDescriptionState}
         />
       </View>
       <View style={styles.formControl}>
         <Toggle
-          checked={multilineInputState}
-          onChange={() => console.log("check")}
+          checked={remoteJob}
+          onChange={() => setRemoteJob(remoteJob => !remoteJob)}
           style={{
             flexDirection: "row-reverse",
             justifyContent: "space-between",
@@ -72,12 +81,14 @@ export const CreateJobScreen = () => {
          <Text category="h6"> Remote Job?</Text>
         </Toggle>
       </View>
-      <View style={styles.formControl}>
-        <Input label="Budget" keyboardType="number-pad" placeholder="Work Budget" />
+      <View style={styles.formControl}> 
+        <Input label="Budget" keyboardType="number-pad" placeholder="Work Budget" {...budgetState} />
       </View>
       <View style={styles.formControl}>
-        <Button onPress={() => console.log("createjob")} style={{}}>Post Job</Button>
+        <Button onPress={() =>handleCreateJob() } style={{}}>Post Job</Button>
       </View>
+      </KeyboardAvoidingView>
+ 
     </Layout>
   );
 };

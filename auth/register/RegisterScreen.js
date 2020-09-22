@@ -13,7 +13,7 @@ import {
   Button,
   Divider,
   Input,
-  CheckBox,
+  CheckBox, Icon
 } from "@ui-kitten/components";
 // import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { KeyboardAvoidingView } from "../../components/evakeyBoard";
@@ -21,8 +21,9 @@ import {
   FacebookIcon,
   GoogleIcon,
   PersonOutlineIcon,
-  ArrowBackIcon,EyeIcon
+  ArrowBackIcon,EyeIcon, EyeOffIcon
 } from "../../assets/Icons";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export const RegisterScreen = (props) => {
   const [firstName, setfirstName] = useState('');
@@ -34,9 +35,20 @@ export const RegisterScreen = (props) => {
   const [email, setEmail] = useState('');
   const [terms, setTerms] = useState(false)
   const [viewPassword, setViewPassword] = useState(false)
+  // const [password, setPassword] = React.useState();
+  // const [passwordVisible, setPasswordVisible] = React.useState(false);
+  // const onPasswordIconPress = () => {
+  //   setPasswordVisible(!passwordVisible);
+  // };
   const handleRegister = () =>{
-    console.log("register")
+    console.log(firstName+"firstname",middleName,+"middlename",
+    lastName+"lastname",password+"password", address+"address", mobile+"mobile" ,email+"email",terms+"terms")
   }
+  const passwordtoggleIcon = (props) => (
+    <TouchableWithoutFeedback onPress={()=>setViewPassword(viewPassword => !viewPassword)}>
+      <Icon {...props} name={!viewPassword ? 'eye' : 'eye-off'}/>
+    </TouchableWithoutFeedback>
+  );
   return (
     <>
       <StatusBar style="auto" backgroundColor="gray" />
@@ -104,12 +116,14 @@ export const RegisterScreen = (props) => {
               <Input
                 textAlign="center"
                 onChangeText={firstname => setfirstName(firstname)}
+                value={firstName}
                 style={styles.formInput}
                 placeholder="First Name"
                 size="medium"
               />
               <Input
                 onChangeText={lastname => setLastName(lastname)}
+                value={lastName}
                 textAlign="center"
                 style={styles.formInput}
                 placeholder="Last Name"
@@ -118,18 +132,22 @@ export const RegisterScreen = (props) => {
               <Input
               textAlign="center"
               onChangeText={middleName => setmiddleName(middleName)}
+              value={middleName}
                 style={styles.formInput}
                 placeholder="Middle Name"
                 size="medium"
               />
               <Input
               textAlign="center"
+              value={address}
+              onChangeText={setAddress}
                 style={styles.formInput}
                 placeholder="Address"
                 size="medium"
               />
               <Input
               textAlign="center"
+              value={mobile}
               onChangeText={mobile => setMobile(mobile)}
               keyboardType="number-pad"
                 style={styles.formInput}
@@ -138,28 +156,38 @@ export const RegisterScreen = (props) => {
               />
               <Input
               textAlign="center"
+              value={email}
               onChangeText={email => setEmail(email)}
                 style={styles.formInput}
                 placeholder="Email"
                 size="medium"
               />
+               {/* <Input 
+          style={styles.passwordInput}
+          placeholder='Password'
+          icon={passwordVisible ? EyeIcon : EyeOffIcon}
+          value={password}
+          secureTextEntry={!passwordVisible}
+          onChangeText={setPassword}
+          onIconPress={onPasswordIconPress}
+        /> */}
               <Input
               secureTextEntry={viewPassword}
               textContentType="password"
+              value={password}
               textAlign="center"
               onChangeText={password => setPassword(password)}
                 style={styles.formInput}
                 placeholder="Password"
                 size="medium"
-                accessoryRight={EyeIcon}
+                accessoryRight={passwordtoggleIcon}
+                
               />
-              
              <View style={{paddingHorizontal:10}}>
              <CheckBox
                 style={styles.termsCheckBox}
                 textStyle={styles.termsCheckBoxText}
                 checked={terms}
-               
                 onChange={(value) => setTerms(value)}
               > 
               By creating an account, I agree to the Ewa Terms of\nUse and Privacy Policy

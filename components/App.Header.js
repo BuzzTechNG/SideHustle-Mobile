@@ -118,7 +118,8 @@ export const ScrollHeader = (props) =>{
           {useNativeDriver: true},
         )}
       >
-        {props.listData.map(props.TransactionItem)}
+        {props.MainContent()}
+        {/* {props.listData.map(props.TransactionItem)} */}
       </Animated.ScrollView>
       
        <Animated.View

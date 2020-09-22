@@ -5,7 +5,7 @@ import  {BottomNavigation, BottomNavigationTab} from '@ui-kitten/components';
 import {JobsScreen} from '../screens/job/Jobs.Screen'
 import {CreateJobScreen} from '../screens/job/CreateJob.Screen'
 import {DashboardScreen} from '../screens/dashboard/Dashboard.Screen'
-import {ReviewsScreen} from '../screens/Reviews.Screen'
+import {ReviewsScreen} from '../screens/review/Reviews.Screen'
 import {UserProfileScreen} from '../screens/UserProfile.Screen'
 import { GridIcon, BriefCaseIcon, PlusCircleIcon, MessageSquareIcon, CreditCardIcon } from '../../assets/Icons';
 import { TransactionScreen } from '../screens/transaction/Transaction.Screen';

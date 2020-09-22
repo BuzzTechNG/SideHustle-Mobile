@@ -22,13 +22,13 @@ export const JobItem = (props) => {
       </View>
       <Divider />
       <View style={{ flex: 1 }}>
-        <Text category="hint">Job description</Text>
-        <Text>
+      <Text category="hint">Job description</Text>
+       <Text>
           description here it is talks a lot hjk jsdsb sjdjbdsjbsd dsjhsjhjs
           hsdbbbuibiuds udsbsdbosid dsubdsub sdobdb check it okay oh painedherev
           alright
-          <Button size="small">more details</Button>
         </Text>
+        <Button size="small">more details</Button>
       </View>
     </Card>
   );
