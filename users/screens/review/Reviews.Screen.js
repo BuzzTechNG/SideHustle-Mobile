@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Button, Input, Layout } from '@ui-kitten/components'
+import { View, StyleSheet } from 'react-native'
+import { Button, Input, Layout,  Text, List, Divider} from '@ui-kitten/components'
 import { ScrollHeader } from '../../../components/App.Header'
 import { ReviewItem } from './Review.Item'
 import { AlertIcon, FilterIcon, SearchIcon } from '../../../assets/Icons'
@@ -15,11 +15,12 @@ export const ReviewList =()=>(
 export const ReviewsScreen = () => {
     return (
        <Layout style={{flex:1, paddingHorizontal:16, paddingVertical:10}}>
-           <ScrollHeader MainContent={ReviewItem}>
+         <>
+           <ScrollHeader MainContent={ReviewList}>
            <View style={styles.container}>
             <View style={styles.pageHeader}>
               <Text category="h2" style={styles.pageTitle}>
-                Transactions
+                Reviews
               </Text>
 
               <View style={styles.pageBtn}>
@@ -34,14 +35,10 @@ export const ReviewsScreen = () => {
             </View>
 
             <Input placeholder="Search" accessoryRight={SearchIcon} />
-            {/* <List
-              style={styles.containerList}
-              data={data}
-              renderItem={TransactionItem}
-            /> */}
             <Divider />
           </View>
            </ScrollHeader>
+           </>
        </Layout>
 
     )

@@ -9,7 +9,7 @@ import {
   MoreVerticalIcon,
   ChevronDownIcon
 } from "../assets/Icons";
-import { View, Animated,StyleSheet } from "react-native";
+import { View, Animated,StyleSheet, TouchableOpacity } from "react-native";
 import {deleteAllInLocalStorage
 } from '../utilities/localstorage'
 import { ChangeNavContext } from "../navigation/app.navigation";
@@ -19,36 +19,43 @@ const HEADER_MIN_HEIGHT = 100;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 
+// export const WalletAmount=() => (
+//   <TopNavigationAction onPress={() => console.log('wallet')}>
+//         $500
+//     </TopNavigationAction>
+// )
+const Amount = "$5000";
 export const AppHeader = () => { 
   const changeNav = React.useContext(ChangeNavContext)
   const [menuVisible, setMenuVisible] = React.useState(false);
+  const [username, setUsername] = React.useState('Usernames')
+  const [showWallet , setShowWallet] = React.useState(true)
 
-  
-  // start scrollable header
+
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+
+  const WalletAmount=() => (
+   <TouchableOpacity style={{ flex:1, justifyContent:"center"}} onPress={() => setShowWallet(showwallet => !showWallet)} >
+     <Text category="h6" >{showWallet ? Amount : "Show wallet"}</Text>
+   </TouchableOpacity>
+  )
 
   const renderMenuAction = () => (
     <TopNavigationAction icon={MoreVerticalIcon} onPress={toggleMenu} />
   );
 
   const RightAction = () => {
-    // const Logout = async() => {
-    //   const value = await deleteAllInLocalStorage();
-    //   if(value){
-    //     changeNav()
-    //   }
-    // }
     return (
     <>
-      <TopNavigationAction icon={PersonOutlineIcon} />
+      <TopNavigationAction icon={WalletAmount} onPress={() => console.log("wallet")} />
       <OverflowMenu
         anchor={renderMenuAction}
         visible={menuVisible}
         onBackdropPress={toggleMenu}
       >
-        <MenuItem accessoryLeft={InfoIcon} title="About" />
+        <MenuItem accessoryLeft={PersonOutlineIcon} title="Profile" />
         <MenuItem accessoryLeft={LogoutIcon} title="Logout" onPress={ () => changeNav(false)} />
       </OverflowMenu>
     </>
@@ -60,15 +67,15 @@ export const AppHeader = () => {
   const LeftAction = (props) => (
       <>
           <TopNavigationAction icon={ProfileImg}>
-              Username
+             
            </TopNavigationAction>
           {/* <Text category="h5">Username</Text> */}
       </>
   )
 return (
     <TopNavigation 
-     alignment="start"
-      title={()=>(<Text category="h5" >Username</Text>)}
+     alignment="start"    
+      title={()=>(<Text category="h5" >{username}</Text>)}
       accessoryLeft={LeftAction}
       accessoryRight={RightAction}
     />

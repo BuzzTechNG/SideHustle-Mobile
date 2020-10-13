@@ -26,7 +26,7 @@ import {
   GoogleIcon,
   ArrowForwardIcon,
 } from "../../assets/Icons";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import Apollo from "../../apolloHelper";
 import { KeyboardAvoidingView } from "../../components/evakeyBoard";
 import * as Facebook from "expo-facebook";
@@ -43,8 +43,11 @@ export const LoginScreen = (props) => {
   const theme = useTheme();
   const [isLoggedin, setLoggedinStatus] = React.useState(false);
   const [userData, setUserData] = React.useState(null);
+  const [email , setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [isImageLoading, setImageLoadStatus] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
+  const [handleLogin ] = useMutation(apollo.LOGIN)
   const facebookLogIn = async () => {
     try {
       const {
@@ -121,12 +124,16 @@ export const LoginScreen = (props) => {
               placeholder="Username / Email"
               size="medium"
               accessoryLeft={PersonOutlineIcon}
+              value={email}
+              onChangeText={email=>setEmail(email)}
             />
             <Input
               style={styles.formInput}
               size="medium"
               placeholder="Passord"
               accessoryLeft={LockOutlineIcon}
+              value={password}
+              onChangeText={password => setPassword(password)}
             />
             <View style={{ alignItems: "flex-end" }}>
               <Text
@@ -140,7 +147,7 @@ export const LoginScreen = (props) => {
             <Button
               style={styles.btnLogin}
               size="large"
-              onPress={() => apollo.testql()}
+              onPress={() => handleLogin({ variables: { userId:email, userPassword: password } })}
             >
               Login
             </Button>

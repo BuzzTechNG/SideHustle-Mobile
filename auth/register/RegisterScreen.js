@@ -24,6 +24,10 @@ import {
   ArrowBackIcon,EyeIcon, EyeOffIcon
 } from "../../assets/Icons";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useMutation } from "@apollo/client";
+import  Apollo from '../../apolloHelper'
+
+const apollo = new Apollo();
 
 export const RegisterScreen = (props) => {
   const [firstName, setfirstName] = useState('');
@@ -35,15 +39,21 @@ export const RegisterScreen = (props) => {
   const [email, setEmail] = useState('');
   const [terms, setTerms] = useState(false)
   const [viewPassword, setViewPassword] = useState(false)
+// const handleRegister = useMutation(apollo.REGISTER)
+const handleRegister = (value)=>{
+  console.log(value)
+}
+
+
   // const [password, setPassword] = React.useState();
   // const [passwordVisible, setPasswordVisible] = React.useState(false);
   // const onPasswordIconPress = () => {
   //   setPasswordVisible(!passwordVisible);
   // };
-  const handleRegister = () =>{
-    console.log(firstName+"firstname",middleName,+"middlename",
-    lastName+"lastname",password+"password", address+"address", mobile+"mobile" ,email+"email",terms+"terms")
-  }
+  // const handleRegister = () =>{
+  //   console.log(firstName+"firstname",middleName,+"middlename",
+  //   lastName+"lastname",password+"password", address+"address", mobile+"mobile" ,email+"email",terms+"terms")
+  // }
   const passwordtoggleIcon = (props) => (
     <TouchableWithoutFeedback onPress={()=>setViewPassword(viewPassword => !viewPassword)}>
       <Icon {...props} name={!viewPassword ? 'eye' : 'eye-off'}/>
@@ -193,7 +203,11 @@ export const RegisterScreen = (props) => {
               By creating an account, I agree to the Ewa Terms of\nUse and Privacy Policy
               </CheckBox>
              </View>
-              <Button style={styles.registerBtn} onPress={() => handleRegister()} >
+              <Button style={styles.registerBtn} onPress={() => handleRegister({
+                firstName:firstName, lastName:lastName, middleName:middleName,
+                password:password, address:address, mobileNumber:mobile,
+                email:email
+              })} >
                 Register
               </Button>
             </View>

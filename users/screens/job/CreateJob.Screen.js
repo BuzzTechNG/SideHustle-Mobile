@@ -29,8 +29,10 @@ export const CreateJobScreen = () => {
   }
 
   return (
+    <>
+    <AppHeader/>
     <Layout style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 10 }}>
-      <AppHeader/>
+      
       <KeyboardAvoidingView>
              <View style={styles.pageHeader}>
         <Text category="h2" style={styles.pageTitle}>
@@ -90,6 +92,7 @@ export const CreateJobScreen = () => {
       </KeyboardAvoidingView>
  
     </Layout>
+    </>
   );
 };
 const styles = StyleSheet.create({

@@ -1,9 +1,11 @@
 import React from 'react';
 import { ImageStyle } from 'react-native';
-import { Icon, IconElement } from '@ui-kitten/components';
+import { Icon, IconElement , Text} from '@ui-kitten/components';
 
 export const FacebookIcon = (props) =>(
     <Icon {...props} name='facebook' />
+   
+   
 );
 
 export const FilterIcon = (props) => (
@@ -74,6 +76,9 @@ export const ArrowBackIcon = (props) => (
     <Icon {...props}  name='arrow-back'/>
   );
   
+export const TrendingUp =(props)=>(
+  <Icon {...props} name="trending-up" />
+);
 
 export const ArrowIosForwardIcon = (props) => (
   <Icon {...props}  name='arrow-ios-forward'/>

@@ -3,10 +3,8 @@ import { StatusBar, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthNavigation } from "../auth/navigation/AuthNavigation";
 import { UserNavigation } from "../users/navigation/user.navigation";
-import { TopNavigation, TopNavigationAction } from "@ui-kitten/components";
-import { InfoIcon, LogoutIcon, MenuIcon } from "../assets/Icons";
 import * as SplashScreen from "expo-splash-screen";
-// import { AppHeader } from "../components/App.Header";
+
 import { setLoggedIn, getLoggedIn } from "../utilities/localstorage";
 
 const ChangeNavContext = React.createContext();
@@ -37,6 +35,7 @@ export const AppNavigation = (props) => {
 
   const CurrentNav = (value) => {
     if (navState) {
+      // if (true) {
       return <UserNavigation />;
     } else {
       return <AuthNavigation />;
