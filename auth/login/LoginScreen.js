@@ -31,7 +31,12 @@ import Apollo from "../../apolloHelper";
 import { KeyboardAvoidingView } from "../../components/evakeyBoard";
 import * as Facebook from "expo-facebook";
 import AsyncStorage from "@react-native-community/async-storage";
-import { setLoggedIn, getLoggedIn } from "../../utilities/localstorage";
+import {
+  setLoggedIn,
+  getLoggedIn,
+  setToken,
+  allStorage,
+} from "../../utilities/localstorage";
 import { ChangeNavContext } from "../../navigation/app.navigation";
 
 Facebook.initializeAsync("333080151368637", "test1");
@@ -43,11 +48,25 @@ export const LoginScreen = (props) => {
   const theme = useTheme();
   const [isLoggedin, setLoggedinStatus] = React.useState(false);
   const [userData, setUserData] = React.useState(null);
-  const [email , setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [isImageLoading, setImageLoadStatus] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
-  const [handleLogin ] = useMutation(apollo.LOGIN)
+  const [handleLogin, loginResponse] = useMutation(apollo.LOGIN);
+  console.log(loginResponse.loading)
+  // console.log(loginResponse.data.login.message)
+  React.useEffect(() => {
+    if (loginResponse.called && !loginResponse.loading) {
+      if (loginResponse.data.login.message == "login-sucessful") {
+        setToken(loginResponse.data.token);
+        console.log('login');
+      } else if (loginResponse.data.login.message == "verify-user") {
+        console.log("navigate to verify number");
+      } else {
+        console.log("invalid password");
+      }
+    }console.log("show")
+  }, [loginResponse.loading]);
   const facebookLogIn = async () => {
     try {
       const {
@@ -125,7 +144,7 @@ export const LoginScreen = (props) => {
               size="medium"
               accessoryLeft={PersonOutlineIcon}
               value={email}
-              onChangeText={email=>setEmail(email)}
+              onChangeText={(email) => setEmail(email)}
             />
             <Input
               style={styles.formInput}
@@ -133,7 +152,7 @@ export const LoginScreen = (props) => {
               placeholder="Passord"
               accessoryLeft={LockOutlineIcon}
               value={password}
-              onChangeText={password => setPassword(password)}
+              onChangeText={(password) => setPassword(password)}
             />
             <View style={{ alignItems: "flex-end" }}>
               <Text
@@ -147,7 +166,11 @@ export const LoginScreen = (props) => {
             <Button
               style={styles.btnLogin}
               size="large"
-              onPress={() => handleLogin({ variables: { userId:email, userPassword: password } })}
+              onPress={() =>
+                handleLogin({
+                  variables: { userId: email, userPassword: password },
+                })
+              }
             >
               Login
             </Button>
@@ -192,7 +215,8 @@ export const LoginScreen = (props) => {
               >
                 Sign Up
               </Button>
-              <Button onPress={() => setVisible(true)}>TOGGLE MODAL</Button>
+              <Button onPress={() => allStorage() }>TOGGLE MODAL</Button>
+              {/* setVisible(true) */}
               <Modal
                 visible={visible}
                 backdropStyle={styles.backdrop}
