@@ -1,6 +1,6 @@
 import React from "react";
 // import {alert} from 'react-native'
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChangeNavContext } from "../navigation/app.navigation";
 
 export const isLoggedIn = "@isLoggedIn";
