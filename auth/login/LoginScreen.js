@@ -30,7 +30,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import Apollo from "../../apolloHelper";
 import { KeyboardAvoidingView } from "../../components/evakeyBoard";
 import * as Facebook from "expo-facebook";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   setLoggedIn,
   getLoggedIn,
